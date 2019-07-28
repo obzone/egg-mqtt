@@ -1,3 +1,5 @@
+const mqtt = require('mqtt')
+
 module.exports = app => {
   app.addSingleton('mqtt', createMQTT)
 }
@@ -5,14 +7,8 @@ module.exports = app => {
 async function createMQTT(config, app) {
   const mqttClient = mqtt.connect(config.host, {
     clientId: config.clientId,
-    username: config.username,
-    password: config.password,
-    keepalive: 60,
     protocolId: 'MQTT',
     protocolVersion: 4,
-    clean: true,
-    reconnectPeriod: 1000,
-    connectTimeout: 30 * 1000,
     rejectUnauthorized: false,
     ...config.options,
   });
